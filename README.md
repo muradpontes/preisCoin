@@ -2,7 +2,7 @@
   <br>preisCoin</br>
   
 <br>
-  <span>um script simples para ver cotações de moedas!
+  <span>um script simples para ver cotações de moedas
   <br>
   
 </p>
@@ -12,7 +12,7 @@
 ```console
 
 # clone o repositório
-$ git clone https://github.com/ohhhio/bartholomeusAI.git
+$ git clone https://github.com/ohhhio/preisCoin.git
 
 # mude para a pasta do preisCoin
 $ cd preisCoin
@@ -28,7 +28,7 @@ $ cd preisCoin
 ```console
 
 # apenas digite o nome da moeda, ex "USD", "BTC".
-# em breve melhorias como mostrar todas as moedas, etc
+# em breve melhorias como mostrar todas as moedas
 
 
 ```
