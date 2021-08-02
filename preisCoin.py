@@ -1,5 +1,4 @@
 __author__ = "ohhhio"
-__license__ = "MIT"
 __version__ = "0.1"
 
 # imports
