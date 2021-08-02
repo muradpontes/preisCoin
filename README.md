@@ -18,6 +18,7 @@ $ git clone https://github.com/ohhhio/preisCoin.git
 $ cd preisCoin
 
 # instale o python caso não tenha instalado
+
 # instale o rich
 $ pip install rich
 
