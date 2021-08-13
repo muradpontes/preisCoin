@@ -1,5 +1,6 @@
 <p align=center>
   <br>preisCoin</br>
+  <img src="https://i.imgur.com/y6Oie8S.png"/>
   
 <br>
   <span>um script simples para ver cotações de moedas
@@ -22,8 +23,6 @@ $ cd preisCoin
 # instale o rich
 $ pip install rich
 
-# aproveite!
-
 ```
 
   ## uso
@@ -35,3 +34,13 @@ $ pip install rich
 
 
 ```
+
+<p align=center>
+  <img src="https://i.imgur.com/hQbeGJG.png" width="100" height="60">
+  
+<br>
+  <span>enjoy!
+  <br>
+    
+</p>
+
