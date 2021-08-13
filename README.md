@@ -1,6 +1,6 @@
 <p align=center>
   <br>preisCoin</br>
-  <img src="https://i.imgur.com/y6Oie8S.png"/>
+  <img src="https://i.imgur.com/tCYZ5Yh.png"/>
   
 <br>
   <span>um script simples para ver cotações de moedas
