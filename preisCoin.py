@@ -1,97 +1,77 @@
-__author__ = "ohhhio"
-__version__ = "0.1"
+__author__ = "muradpontes"
+__version__ = "0.2"
 
-# imports
+import json
+import requests
+from time import sleep
 from rich import print
 from rich.columns import Columns
 from rich.panel import Panel
 from rich.console import Console
-from os import system
-from time import sleep
-import json
-import urllib.request
 
-# set console
 console = Console()
 
-# class to parse json data
-class GetJSON:
-    
-    def __init__(self, get_json, moeda, maximo, minimo, nome, compra, venda, variacao, data, choice): # fix
-        self.get_json = get_json
-        self.moeda = moeda
-        self.maximo = maximo
-        self.minimo = minimo
-        self.nome = nome
-        self.compra = compra
-        self.venda = venda
-        self.variacao = variacao
-        self.data = data
-        self.choice = choice
 
-    # get json from awesomeAPI
+class get_json:
+    
+    def __init__(self):
+        self.json_data = None
+        self.currency = None
+        self.high = None
+        self.low = None
+        self.name = None
+        self.bid = None
+        self.ask = None
+        self.var_bid = None
+        self.choice = None
+    
     def get_data(self):
-        urlData = "https://economia.awesomeapi.com.br/json/all"
-        webUrl = urllib.request.urlopen(urlData)
-        with console.status("Conectando-se ao servidor...", spinner='simpleDots') as status:
-            sleep(1.4)
-            try:
-                if (webUrl.getcode() == 200):
-                    self.data = webUrl.read()
-            except:
-                print("Não foi possível conectar-se ao servidor") # fix
+        url = "https://economia.awesomeapi.com.br/json/all"
+        with console.status("Connecting to server...", spinner='simpleDots') as status:
+            response = requests.get(url)
+            if response.status_code == 200:
+                self.json_data = response.json()
+            else:
+                print("Failed to connect to server")
+                return False
+        return True
     
-    # set variables
-    def parse_data(self, coin):
-        self.get_json = json.loads(self.data)
-
-        if "name" in self.get_json[f"{coin}"]:
-            self.moeda = self.get_json[f"{coin}"]
-            self.maximo = self.moeda["high"]
-            self.minimo = self.moeda["low"]
-            self.nome = self.moeda["name"]
-            self.compra = self.moeda["bid"]
-            self.venda = self.moeda["ask"]
-            self.variacao = self.moeda["varBid"]
+    def parse_data(self, currency):
+        if currency in self.json_data:
+            data = self.json_data[currency]
+            self.currency = data['code']
+            self.high = data['high']
+            self.low = data['low']
+            self.name = data['name']
+            self.bid = data['bid']
+            self.ask = data['ask']
+            self.var_bid = data['varBid']
     
-    # show results
-    def print_data(self, coin):
-        
-        while self.choice != '2':
-            print(f"[bold white]\n{self.nome}")
-
-            data = f"[bold yellow]{coin}[/bold yellow][bold white] to [/bold white][bold yellow]BRL"  
-            painel = [Panel(data)]
-            caixa = Columns(painel)
-            console.print(caixa)
-
-            print(f"\nMáxima: [bold red]{self.maximo}")
-            print(f"\nMínima: [bold green]{self.minimo}\n")
-        
-            data = f"[bold yellow]Compra: [/bold yellow][bold white]{self.compra}[/bold white]\n[bold yellow]Venda: [/bold yellow][bold white]{self.venda}\n[bold yellow]Variacao: [bold white]{self.variacao}"
-            painel = [Panel(data)]
-            caixa = Columns(painel)
-            console.print(caixa)
-    
-            choice = str(input('\nDeseja ver a cotação de outra moeda?\n1. Sim\n2. Não\n\n'))
-            
-            if choice == '1':
-                system('cls || clear')
-                main.loop()
-
-            elif choice =='2':
-                sleep(1)
-                print('Até mais!')
-                sleep(0.5)
-                exit()
-    
-    # loop to view other coins
     def loop(self):
-        moeda = input("Digite a moeda desejada (ex.: USD, DOGE): ").upper()
-        main.get_data()
-        main.parse_data(moeda)
-        main.print_data(moeda)
-
-# initiates
-main = GetJSON(0, 0, 0, 0, 0, 0, 0, 0, 0, 0) # fix
+        currency = input("Enter the currency code (ex.: USD, DOGE): ").upper()
+        if self.get_data():
+            self.parse_data(currency)
+            print(f"\n{self.name}")
+            panel_data = f"[bold yellow]{self.currency}[/bold yellow][bold white] to [/bold white][bold yellow]BRL[/bold yellow]"
+            panel = [Panel(panel_data)]
+            columns = Columns(panel)
+            console.print(columns)
+            print(f"\nHigh: [bold red]{self.high}")
+            print(f"Low: [bold green]{self.low}")
+            print(f"Buy: [bold white]{self.bid}")
+            print(f"Sell: [bold white]{self.ask}")
+            print(f"Variation: [bold white]{self.var_bid}")
+            
+            while self.choice != '2':
+                self.choice = str(input('\nDo you want to view another currency?\n1. Yes\n2. No\n\n'))
+                if self.choice == '1':
+                    system('cls || clear')
+                    self.loop()
+                elif self.choice =='2':
+                    sleep(1)
+                    print('Goodbye!')
+                    sleep(0.5)
+                    exit()
+    
+main = get_json()
 main.loop()
