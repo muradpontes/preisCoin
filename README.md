@@ -1,6 +1,7 @@
 <p align=center>
   <br>preisCoin</br>
-  <img src="https://i.imgur.com/tCYZ5Yh.png"/>
+  <img src="https://i.imgur.com/hXLfLQI.png"/>
+  <img src="https://i.imgur.com/MRCYDOZ.png"/>
   
 <br>
   <span>um script simples para ver cotações de moedas
@@ -30,9 +31,6 @@ $ pip install rich
 ```console
 
 # apenas digite o nome da moeda, ex "USD", "BTC".
-# em breve melhorias como mostrar todas as moedas
-
-
 ```
 
 <p align=center>
