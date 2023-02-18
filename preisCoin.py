@@ -3,6 +3,7 @@ __version__ = "0.2"
 
 import json
 import requests
+from os import system
 from time import sleep
 from rich import print
 from rich.columns import Columns
@@ -56,22 +57,22 @@ class get_json:
             panel = [Panel(panel_data)]
             columns = Columns(panel)
             console.print(columns)
-            print(f"\nHigh: [bold red]{self.high}")
-            print(f"Low: [bold green]{self.low}")
-            print(f"Buy: [bold white]{self.bid}")
-            print(f"Sell: [bold white]{self.ask}")
-            print(f"Variation: [bold white]{self.var_bid}")
-            
-            while self.choice != '2':
-                self.choice = str(input('\nDo you want to view another currency?\n1. Yes\n2. No\n\n'))
-                if self.choice == '1':
-                    system('cls || clear')
-                    self.loop()
-                elif self.choice =='2':
-                    sleep(1)
-                    print('Goodbye!')
-                    sleep(0.5)
-                    exit()
+
+            print(f"\nMaximum: [bold red]{self.high}")
+            print(f"\nMinimum: [bold green]{self.low}\n")
+            print(f"[bold yellow]Buy: [/bold yellow][bold white]{self.bid}[/bold white]")
+            print(f"[bold yellow]Sell: [/bold yellow][bold white]{self.ask}[/bold white]")
+            print(f"[bold yellow]Variation: [/bold yellow][bold white]{self.var_bid}")
+
+            choice = input('\nDo you want to see the quotation of another coin?\n1. Yes\n2. No\n\n')
+            if choice == '1':
+                system('cls || clear')
+                main.loop()
+            else:
+                sleep(0.7)
+                print('See you later!')
+                sleep(0.5)
+                exit()
     
 main = get_json()
 main.loop()
